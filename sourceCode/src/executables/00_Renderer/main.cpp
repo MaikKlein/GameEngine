@@ -55,7 +55,6 @@ int main()
 {
     glfwInit();
 
-
 	//our window
 	Window* window = new Window(550,50,800,600, "Renderer Example");
 	
@@ -65,23 +64,12 @@ int main()
 	Renderer* renderer = new Renderer();
 	renderer->loadObject(vertices, sizeof(vertices));
 	
-	//get the Path of the exe end delete all symbols, to get the path of the sourcecode and transform it to a string, because we can add easily new chars
-	char str[MAX_PATH];
-	GetModuleFileNameA(NULL, str, MAX_PATH);
-	for (int i = 0; i < 31; i++)
-		str[strlen(str) - 1] = 0;
-	std::string string(str);
-
-	//this is the Path for the needed shader
-	std::string vertexShaderPath = string+"src\\shaders\\00_Renderer\\minimal.vert";
-	std::string fragmentShaderPath = string+"src\\shaders\\00_Renderer\\minimal.frag";
-	ShaderHandle* shaderhandler = new ShaderHandle(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
+	ShaderHandle* shaderhandler = new ShaderHandle("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag");
 
 	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
 	{
 		timeMeasuring(2000);
-
 		renderer->render(window->getWindow());
     }
 

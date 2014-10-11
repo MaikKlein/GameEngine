@@ -5,23 +5,34 @@
 #include <string>
 #include <cstring>
 #include <fstream>
+#include <windows.h> 
+#include <conio.h>
 
 #include "ShaderHandle.h"
 
-const char* vertexShaderPath;
-const char* fragmentShaderPath;
+std::string vertexShaderPath;
+std::string fragmentShaderPath;
 
 /*
 initialize the shaderHandle and loads a vertex and a fragment shader
 */
-ShaderHandle::ShaderHandle(const char* vertexShaderPath, const char* fragmentShaderPath)
+ShaderHandle::ShaderHandle(std::string vertexShader, std::string fragmentShader)
 {
 	std::cout << "Shader was initialized" << std::endl;
-	this->vertexShaderPath = vertexShaderPath;
-	this->fragmentShaderPath = fragmentShaderPath;
+
+	//get the Path of the exe end delete all symbols, to get the path of the sourcecode and transform it to a string, because we can add easily new chars
+	char str[MAX_PATH];
+	GetModuleFileNameA(NULL, str, MAX_PATH);
+	for (int i = 0; i < 31; i++)
+		str[strlen(str) - 1] = 0;
+	std::string filePathOfSource(str);
+	
+	//translate the path to the shader paths
+	this->vertexShaderPath += filePathOfSource + "src\\shaders\\" + vertexShader;
+	this->fragmentShaderPath += filePathOfSource + "src\\shaders\\" + fragmentShader;
+
 	//Open, compile and link Shader
-	makeShaderProgram(vertexShaderPath,fragmentShaderPath);
-	//createColorShaderProgram(1.0, 0.0, 0.0);
+	makeShaderProgram(&vertexShaderPath[0],&fragmentShaderPath[0]);
 }
 
 ShaderHandle::~ShaderHandle()

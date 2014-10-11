@@ -8,9 +8,9 @@
 class ShaderHandle
 {
 public:
-	const char* vertexShaderPath;
-	const char* fragmentShaderPath;
-	ShaderHandle(const char* vertexShaderPath, const char* fragmentShaderPath);
+	std::string vertexShaderPath;
+	std::string fragmentShaderPath;
+	ShaderHandle(std::string vertexShaderPath, std::string fragmentShaderPath);
 	~ShaderHandle();
 	GLuint createColorShaderProgram(float r, float g, float b);
 	void checkShader(GLuint shaderHandle);
