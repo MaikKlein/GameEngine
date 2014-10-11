@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <windows.h> 
+#include <conio.h>
 
 //#include "Node.h"
 //#include "Object.h"
@@ -53,6 +55,7 @@ int main()
 {
     glfwInit();
 
+
 	//our window
 	Window* window = new Window(550,50,800,600, "Renderer Example");
 	
@@ -62,10 +65,17 @@ int main()
 	Renderer* renderer = new Renderer();
 	renderer->loadObject(vertices, sizeof(vertices));
 	
-	//our shaderhandler and the shaderpaths
-	const char* vertexShaderPath = "C:\\Users\\Kevin M\\workspace\\CG1_WS1314\\glBindBuffer\\src\\shaders\\Renderer\\minimal.vert";
-	const char* fragmentShaderPath = "C:\\Users\\Kevin M\\workspace\\CG1_WS1314\\glBindBuffer\\src\\shaders\\Renderer\\minimal.frag";
-	ShaderHandle* shaderhandler = new ShaderHandle(vertexShaderPath, fragmentShaderPath);
+	//get the Path of the exe end delete all symbols, to get the path of the sourcecode and transform it to a string, because we can add easily new chars
+	char str[MAX_PATH];
+	GetModuleFileNameA(NULL, str, MAX_PATH);
+	for (int i = 0; i < 31; i++)
+		str[strlen(str) - 1] = 0;
+	std::string string(str);
+
+	//this is the Path for the needed shader
+	std::string vertexShaderPath = string+"src\\shaders\\00_Renderer\\minimal.vert";
+	std::string fragmentShaderPath = string+"src\\shaders\\00_Renderer\\minimal.frag";
+	ShaderHandle* shaderhandler = new ShaderHandle(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
 
 	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
