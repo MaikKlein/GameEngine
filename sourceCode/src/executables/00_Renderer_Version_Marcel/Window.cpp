@@ -53,8 +53,9 @@ const char* Window::getName()
 void Window::initialize(){
 
 	m_window = glfwCreateWindow(m_width, m_height, m_name, 0, 0);
-	glfwSetWindowPos(m_window,600, 50);
+	glfwSetWindowPos(m_window,300, 50);
 	glfwMakeContextCurrent(m_window);
+	glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
 }
 
 GLFWwindow* Window::getWindow()
