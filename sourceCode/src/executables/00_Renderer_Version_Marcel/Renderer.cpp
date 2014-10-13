@@ -4,9 +4,18 @@
 Renderer::Renderer()
 {
 	useOpenGL33();
+	initializeWindow();
 	printInformation();
 }
 
+Renderer::Renderer(std::string vertexShader, std::string fragmentShader, Object* object)
+{
+	useOpenGL33();
+	initializeWindow();
+	printInformation();
+	initializeShader(vertexShader, fragmentShader);
+	m_object = object;
+}
 
 Renderer::~Renderer()
 {
@@ -48,6 +57,7 @@ void Renderer::renderLoop(GLFWwindow* window)
 
 void Renderer::render(GLFWwindow* window, Object* object)
 {
+
 	object->render(window);
 }
 
@@ -64,6 +74,8 @@ void Renderer::useOpenGL33()
 #endif
 }
 
+
+
 void Renderer::printInformation()
 {
 	std::cout << "=============================================" << std::endl;
@@ -73,4 +85,31 @@ void Renderer::printInformation()
 	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "=============================================" << std::endl;
+}
+
+Window* Renderer::getWindow()
+{
+	return m_window;
+}
+
+void Renderer::initializeWindow()
+{
+	glfwInit();
+	m_window = new Window(800, 600, "Renderer");
+	m_window->initialize();
+	glewInit();
+}
+
+void Renderer::initializeShader(std::string vertexShader, std::string fragmentShader)
+{
+	m_shader = new Shader(vertexShader, fragmentShader);
+}
+
+void Renderer::start()
+{
+	while (!glfwWindowShouldClose(m_window->getWindow()))
+	{
+		render(m_window->getWindow(), m_object);
+	}
+	m_window->destroy();
 }

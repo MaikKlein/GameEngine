@@ -3,39 +3,43 @@
 #include <GLFW/glfw3.h>
 #include <glm/ext.hpp>
 
-#include "Window.h"	
+//#include "Window.h"	
 #include "Renderer.h"
-#include "Shader.h"
+//#include "Shader.h"
 
 
 
 //TODO: Should only be the Front-End for the user
 int main(){
 
-	//We initialize a window
-	//TODO: This should do the renderer-class
-	glfwInit();
+	/*glfwInit();
 	Window* window = new Window(800, 600, "Renderer");
 	window->initialize();
 	glewInit();
+	*/
 
 	//TODO: Maybe we could have more classes of objects (triangle, rectangle etc.)
 	//TODO: A better object oriented way would be nice
 	Object* object = new Object();
 
 	//We initialize the renderer
-	Renderer* renderer = new Renderer();
+	//The only question we ask us are: What do we want to be rendered (Object) and which way we want it to be rendered (Shader)
+	Renderer* renderer = new Renderer("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag", object);
 
-	//We initialize the shader
-	//TODO: Should happen in the renderer-class
-	Shader* shader = new Shader("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag");
+	renderer->start();
 
-	while (!glfwWindowShouldClose(window->getWindow())){
+/*	//We initialize the shader
+	//Shader* shader = new Shader("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag");
+*/
+	
 
-		renderer->render(window->getWindow(), object);
+	/*while (!glfwWindowShouldClose(renderer->getWindow()->getWindow())){
+
+		renderer->render(renderer->getWindow()->getWindow(), object);
 		
 	}
-	window->destroy();
-
+	renderer->getWindow()->destroy();
+	*/
+	
 	return 0;
 }
