@@ -6,16 +6,8 @@
 #include "Window.h"	
 #include "Renderer.h"
 #include "Shader.h"
-//#include "Object.h"
 
-//Example
-GLfloat vertices[] =
-{
-	0.5, -0.5,
-	-0.5, -0.5,
-	0.5, 0.5,
-	-0.5, 0.5,
-};
+
 
 //TODO: Should only be the Front-End for the user
 int main(){
@@ -27,13 +19,12 @@ int main(){
 	window->initialize();
 	glewInit();
 
-
+	//TODO: Maybe we could have more classes of objects (triangle, rectangle etc.)
+	//TODO: A better object oriented way would be nice
 	Object* object = new Object();
 
 	//We initialize the renderer
 	Renderer* renderer = new Renderer();
-	//renderer->loadRessources(vertices, sizeof(vertices));
-
 
 	//We initialize the shader
 	//TODO: Should happen in the renderer-class
@@ -41,8 +32,6 @@ int main(){
 
 	while (!glfwWindowShouldClose(window->getWindow())){
 
-		//renderer->renderLoop(window->getWindow());
-		//object->render(window->getWindow());
 		renderer->render(window->getWindow(), object);
 		
 	}

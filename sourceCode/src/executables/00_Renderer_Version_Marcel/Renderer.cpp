@@ -13,6 +13,7 @@ Renderer::~Renderer()
 
 }
 
+/*
 void Renderer::loadRessources(GLfloat vertices[], int points)
 {
 	m_points = points / 8;
@@ -30,8 +31,9 @@ void Renderer::loadRessources(GLfloat vertices[], int points)
 
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
+*/
 
-
+/*
 void Renderer::renderLoop(GLFWwindow* window)
 {
 
@@ -42,6 +44,7 @@ void Renderer::renderLoop(GLFWwindow* window)
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
+*/
 
 void Renderer::render(GLFWwindow* window, Object* object)
 {

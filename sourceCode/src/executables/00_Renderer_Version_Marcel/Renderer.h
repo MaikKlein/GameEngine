@@ -23,15 +23,14 @@ public:
 	Renderer();
 	~Renderer();
 
-	//The Renderer gets data and should store them in Buffers with this method
-	//TODO: Until now just vertices, no really Objects
+/*	void loadRessources(GLfloat vertices[], int points);
+*/
+
+/*	void renderLoop(GLFWwindow* window);
+*/
+
+	//This method tells the object, that it should render itself, this means: load the buffers, drawing on the screen
 	//TODO: 2D and 3D support, maybe multiple Render-classes?
-	//TODO: The object should be doing the loading of the buffers, not the renderer
-	void loadRessources(GLfloat vertices[], int points);
-
-	//The Render-Loop needs to clear and swap the buffers, this method draws the objects too
-	void renderLoop(GLFWwindow* window);
-
 	void render(GLFWwindow* window, Object* object);
 
 	
@@ -45,7 +44,8 @@ public:
 	void printInformation();
 
 private:
-	//TODO: The Object should know, how many points it has
-	int m_points;
+	
+	/*int m_points;
+	*/
 
 };
