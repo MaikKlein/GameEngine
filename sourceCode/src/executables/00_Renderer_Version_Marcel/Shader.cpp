@@ -8,26 +8,10 @@ Shader::Shader()
 Shader::Shader (std::string vertexShader, std::string fragmentShader)
 {
 
-	//We read the path automatically 
-	//TODO: do not work with my own project
-	/*
-	char str[MAX_PATH];
-	GetModuleFileNameA(NULL, str, MAX_PATH);
-	for (int i = 0; i < 31; i++)
-		str[strlen(str) - 1] = 0;
-	std::string filePathOfSource(str);
-	
-
-	//translate the path to the shader paths
-	//m_vertexShader += filePathOfSource + "src\\shaders\\" + vertexShader;
-	//m_fragmentShader += filePathOfSource + "src\\shaders\\" + fragmentShader;
-	*/
-
 	//My Standard Path for shaders
 	m_vertexShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+vertexShader;
 	m_fragmentShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+ fragmentShader;
 
-	//With the path given, we generate the shaders
 	generateShader(&m_vertexShader[0],&m_fragmentShader[0]);
 	
 }

@@ -12,23 +12,18 @@
 class Shader
 {
 public:
-	//The constructor takes the Path of a vertex and a fragment shader
+	
 	Shader();
 	Shader(std::string vertexShader, std::string fragmentShader);
-	//If a Shader is active, the program should be deleted
 	~Shader();
 
 private:
-	//This method should generate a Vertex and a Fragment Shader
 	void generateShader(const char* vertexShader, const char* fragmentShader);
-	//This metod uses a file to load the source of the shader
 	void loadShaderSource(GLint shaderID, const char* fileName);
 
-	//Two methods which check if the generation and linking of shader and program were successfull
 	void checkShader(GLuint shaderID);
 	void checkProgram(GLuint programID);
 
-	//A getter for the programID of the active Shader
 	GLuint getProgramID();
 
 protected:

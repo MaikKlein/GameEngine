@@ -22,38 +22,6 @@ Renderer::~Renderer()
 
 }
 
-/*
-void Renderer::loadRessources(GLfloat vertices[], int points)
-{
-	m_points = points / 8;
-
-	GLuint vertexBufferHandle;
-	glGenBuffers(1, &vertexBufferHandle);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferHandle);
-	glBufferData(GL_ARRAY_BUFFER, points, vertices, GL_STATIC_DRAW);
-
-	GLuint vertexArrayHandle;
-	glGenVertexArrays(1, &vertexArrayHandle);
-	glBindVertexArray(vertexArrayHandle);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
-}
-*/
-
-/*
-void Renderer::renderLoop(GLFWwindow* window)
-{
-
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, m_points);
-
-	glfwSwapBuffers(window);
-	glfwPollEvents();
-}
-*/
 
 void Renderer::render(GLFWwindow* window, Object* object)
 {
