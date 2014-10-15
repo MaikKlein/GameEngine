@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <vector>
+#include <glm / glm.hpp>
 
 #include "Renderer.h"
 
@@ -25,7 +27,7 @@ int numberOfPoints;
 /*
 get an object, now only vertices, and load it to the VBO & VAO
 */
-void Renderer::loadObject(GLfloat vertices[], int anzahl)
+void Renderer::loadObject(vertex <GLfloat>, int anzahl)
 {
 	numberOfPoints = anzahl/8;
 

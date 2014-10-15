@@ -12,12 +12,19 @@
 #include "ShaderHandle.h"
 
 //Example
-GLfloat vertices[]  =
+GLfloat vertices1[]  =
 { 
-	0.5, -0.5,
-	-0.5, -0.5, 
-     0.5,  0.5,
-	-0.5,  0.5,
+	0.25, -0.25,
+	-0.25, -0.25, 
+     0.25,  0.25,
+	-0.25,  0.25,
+};
+
+GLfloat vertices2[] =
+{
+	-0.9, -0.9,
+	-0.6, -0.8,
+	-0.4, -0.4
 };
 
 //variables for time measuring
@@ -62,7 +69,8 @@ int main()
     
 	//our renderer
 	Renderer* renderer = new Renderer();
-	renderer->loadObject(vertices, sizeof(vertices));
+	renderer->loadObject(vertices2, sizeof(vertices1));
+	renderer->loadObject(vertices2, sizeof(vertices2));
 	
 	ShaderHandle* shaderhandler = new ShaderHandle("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag");
 
