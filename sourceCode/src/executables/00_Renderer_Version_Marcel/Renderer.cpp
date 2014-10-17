@@ -8,7 +8,7 @@ Renderer::Renderer()
 	printInformation();
 }
 
-Renderer::Renderer(std::string vertexShader, std::string fragmentShader, Object* object)
+Renderer::Renderer(std::string vertexShader, std::string fragmentShader, Rect* object)
 {
 	useOpenGL33();
 	initializeWindow();
@@ -23,7 +23,7 @@ Renderer::~Renderer()
 }
 
 
-void Renderer::render(GLFWwindow* window, Object* object)
+void Renderer::render(GLFWwindow* window, Rect* object)
 {
 
 	object->render(window);
@@ -75,6 +75,7 @@ void Renderer::initializeShader(std::string vertexShader, std::string fragmentSh
 
 void Renderer::start()
 {
+	m_object->createBuffer();
 	while (!glfwWindowShouldClose(m_window->getWindow()))
 	{
 		render(m_window->getWindow(), m_object);
