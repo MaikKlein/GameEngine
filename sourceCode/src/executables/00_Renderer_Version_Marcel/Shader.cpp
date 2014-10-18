@@ -9,8 +9,11 @@ Shader::Shader (std::string vertexShader, std::string fragmentShader)
 {
 
 	//My Standard Path for shaders
-	m_vertexShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+vertexShader;
-	m_fragmentShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+ fragmentShader;
+//	m_vertexShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+vertexShader;
+//	m_fragmentShader += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\"+ fragmentShader;
+
+	m_vertexShader += SHADERS_PATH + vertexShader;
+	m_fragmentShader += SHADERS_PATH + fragmentShader;
 
 	generateShader(&m_vertexShader[0],&m_fragmentShader[0]);
 	
