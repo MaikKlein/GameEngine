@@ -55,6 +55,10 @@ and renderering the object in the gameloop
 */
 int main() 
 {
+	m_vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
+	m_vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
+	m_vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
+	m_vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
     glfwInit();
 
 	//our window
@@ -62,18 +66,16 @@ int main()
 	
     glewInit();
     
-	m_vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
-	m_vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
-	m_vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
-	m_vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
+
 
 	//our renderer
 	Renderer* renderer = new Renderer();
-	renderer->loadObject(&m_vertices);
+
 	
 	ShaderHandle* shaderhandler = new ShaderHandle("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag");
 
 	//Gameloop
+	renderer->loadObject(&m_vertices);
     while( !glfwWindowShouldClose(window->getWindow()))
 	{
 		timeMeasuring(2000);

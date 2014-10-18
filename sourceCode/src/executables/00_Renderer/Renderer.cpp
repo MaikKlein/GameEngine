@@ -48,7 +48,7 @@ void Renderer::loadObject(std::vector<glm::vec3> *m_vertices)
 	GLuint vertexBuffer;
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, numberOfPoints * sizeof(glm::vec3), &m_vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertices->size() * sizeof(glm::vec3), &m_vertices->at(0), GL_STATIC_DRAW);
 
 	GLuint vertexArray;
 	glGenVertexArrays(1, &vertexArray);
