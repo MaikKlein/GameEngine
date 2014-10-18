@@ -3,6 +3,9 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+#include <glm/glm.hpp>
+
 
 
 class Renderer
@@ -12,7 +15,7 @@ public:
 	~Renderer();
 
 	int numberOfPoints;
-	void loadObject(GLfloat vertices[], int anzahl);
+	void loadObject(std::vector<glm::vec3> *m_vertices);
 	void render(GLFWwindow* window);
 	void useOpenGL33CoreProfile();
 	void printInfo();

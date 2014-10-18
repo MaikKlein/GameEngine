@@ -4,9 +4,9 @@
 #include <iostream>
 #include <windows.h> 
 #include <conio.h>
+#include <vector>
+#include <glm/glm.hpp>
 
-//#include "Node.h"
-//#include "Object.h"
 #include "Renderer.h"
 #include "Window.h"
 #include "ShaderHandle.h"
@@ -19,6 +19,8 @@ GLfloat vertices[]  =
      0.5,  0.5,
 	-0.5,  0.5,
 };
+
+std::vector<glm::vec3> m_vertices;
 
 //variables for time measuring
 double startTime = glfwGetTime();
@@ -60,11 +62,16 @@ int main()
 	
     glewInit();
     
+	m_vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
+	m_vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
+	m_vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
+	m_vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
+
 	//our renderer
 	Renderer* renderer = new Renderer();
-	renderer->loadObject(vertices, sizeof(vertices));
+	renderer->loadObject(&m_vertices);
 	
-	ShaderHandle* shaderhandler = new ShaderHandle("00_Renderer\\minimal.vert", "00_Renderer\\minimal.frag");
+	ShaderHandle* shaderhandler = new ShaderHandle("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag");
 
 	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
