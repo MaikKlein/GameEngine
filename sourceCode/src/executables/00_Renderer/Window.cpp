@@ -46,7 +46,6 @@ void Window::close(){
 	glfwTerminate();
 }
 
-
 /*
 getter of the actual window
 */

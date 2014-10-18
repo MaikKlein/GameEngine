@@ -12,24 +12,14 @@
 #include "ShaderHandle.h"
 
 //Example
-GLfloat vertices[]  =
-{ 
-	0.5, -0.5,
-	-0.5, -0.5, 
-     0.5,  0.5,
-	-0.5,  0.5,
-};
-
 std::vector<glm::vec3> m_vertices;
-
-//variables for time measuring
-double startTime = glfwGetTime();
-double time = 0.0;
-int i = 0;
 
 /*
 measure the time for a certain number of loops
 */
+double startTime = glfwGetTime();
+double time = 0.0;
+int i = 0;
 void timeMeasuring(int numberOfLoops){
 	float deltaT = glfwGetTime() - startTime;
 	if (i<numberOfLoops){
@@ -55,10 +45,12 @@ and renderering the object in the gameloop
 */
 int main() 
 {
+	//our example
 	m_vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
 	m_vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
 	m_vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
 	m_vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
+
     glfwInit();
 
 	//our window
@@ -66,16 +58,14 @@ int main()
 	
     glewInit();
     
-
+	//our shaderhandler, which handles the shader
+	ShaderHandle* shaderhandler = new ShaderHandle("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag");
 
 	//our renderer
 	Renderer* renderer = new Renderer();
-
-	
-	ShaderHandle* shaderhandler = new ShaderHandle("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag");
-
-	//Gameloop
 	renderer->loadObject(&m_vertices);
+	
+	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
 	{
 		timeMeasuring(2000);

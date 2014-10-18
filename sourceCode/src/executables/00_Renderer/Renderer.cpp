@@ -5,9 +5,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-
 #include "Renderer.h"
-
 
 /*
 by initializing, the renderer check, if the OS support OpenGL
@@ -19,31 +17,19 @@ Renderer::Renderer()
 	printInfo();
 }
 
-
 Renderer::~Renderer()
 {
 }
 
 int numberOfPoints;
+
 /*
 get an object, now only vertices, and load it to the VBO & VAO
 */
 void Renderer::loadObject(std::vector<glm::vec3> *m_vertices)
 {
-	/*numberOfPoints = sizeof(vertices);
 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, 8*sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	GLuint vertexarray;
-	glGenVertexArrays(1, &vertexarray);
-	glBindVertexArray(vertexarray);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);*/
-
-	numberOfPoints = 4;
+	numberOfPoints = m_vertices->size();
 
 	GLuint vertexBuffer;
 	glGenBuffers(1, &vertexBuffer);
@@ -64,7 +50,7 @@ main rendering routine
 void Renderer::render(GLFWwindow* window)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, numberOfPoints);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }

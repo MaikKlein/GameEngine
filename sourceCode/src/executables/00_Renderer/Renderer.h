@@ -6,8 +6,6 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-
-
 class Renderer
 {
 public:
