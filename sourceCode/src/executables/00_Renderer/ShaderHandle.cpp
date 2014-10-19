@@ -20,21 +20,10 @@ ShaderHandle::ShaderHandle(std::string vertexShader, std::string fragmentShader)
 {
 	std::cout << "Shader was initialized" << std::endl;
 
-	//get the Path of the exe end delete all symbols, to get the path of the sourcecode and transform it to a string, because we can add easily new chars
-	char str[MAX_PATH];
-	GetModuleFileNameA(NULL, str, MAX_PATH);
-	for (int i = 0; i < 31; i++)
-		str[strlen(str) - 1] = 0;
-	std::string filePathOfSource(str);
-	
-	//translate the path to the shader paths
-	//this->vertexShaderPath += filePathOfSource + "src\\shaders\\" + vertexShader;
-	//this->fragmentShaderPath += filePathOfSource + "src\\shaders\\" + fragmentShader;
+	//set the Path of the shaders
 	this->vertexShaderPath += SHADERS_PATH + vertexShader;
 	this->fragmentShaderPath += SHADERS_PATH +fragmentShader;
-
-	//this->vertexShaderPath += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\" + vertexShader;
-	//this->fragmentShaderPath += "C:\\Users\\Marcel\\Documents\\GitHub\\GameEngine\\sourceCode\\src\\shaders\\" + fragmentShader;
+	
 	//Open, compile and link Shader
 	makeShaderProgram(&vertexShaderPath[0],&fragmentShaderPath[0]);
 }
