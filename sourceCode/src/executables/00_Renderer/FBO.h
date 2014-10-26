@@ -41,7 +41,7 @@ public:
 	void unbind();
 
 	void generateTextures(unsigned int width, unsigned int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture);
-	void FBO::generateColorTexture(std::vector<GLenum> drawBuffers, unsigned int index);
+	void FBO::generateColorTexture(std::vector<GLenum> &drawBuffers, unsigned int index);
 	void FBO::generateDepthTexture();
 	void FBO::generateStencilTexture();
 	GLuint FBO::createTexture();

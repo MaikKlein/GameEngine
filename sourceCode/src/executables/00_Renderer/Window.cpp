@@ -34,8 +34,8 @@ Window::~Window()
 /*
 assume the new setting of the window like width or xpos
 */
-void Window::update(){
-
+void Window::update()
+{
 }
 
 /*

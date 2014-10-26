@@ -63,7 +63,9 @@ void FBO::generateTextures(unsigned int width, unsigned int height, unsigned int
 	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferHandle);
 
 	std::vector<GLenum> drawBuffers;
-	for (int i = 0; i < numColorTextures; i++){ generateColorTexture(drawBuffers, i); }
+	for (int i = 0; i < numColorTextures; i++){ 
+		generateColorTexture(drawBuffers, i);
+	}
 	// use color textures in fbo
 	glDrawBuffers(numColorTextures, drawBuffers.data());
 
@@ -86,7 +88,7 @@ void FBO::generateTextures(unsigned int width, unsigned int height, unsigned int
 generate a color texture with a certain index (index ist dependet with how much color textures you want)
 this function calls createTexture()
 */
-void FBO::generateColorTexture(std::vector<GLenum> drawBuffers, unsigned int index)
+void FBO::generateColorTexture(std::vector<GLenum> &drawBuffers, unsigned int index)
 {
 	GLuint colorTextureHandle = createTexture();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);

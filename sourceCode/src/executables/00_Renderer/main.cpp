@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "Window.h"
 #include "ShaderHandle.h"
+#include "FBO.h"
 
 //Example
 std::vector<glm::vec3> m_vertices;
@@ -64,12 +65,30 @@ int main()
 	//our renderer
 	Renderer* renderer = new Renderer();
 	renderer->loadObject(&m_vertices);
-	
+
+	FBO fbo(800, 600);
+
 	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		timeMeasuring(2000);
+
+		//FBO
+		fbo.bind();
+		glViewport(0, 0, 800, 600);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		renderer->render(window->getWindow());
+		fbo.unbind();
+
+		//Szene drawen
+		glViewport(0, 0, 800, 600);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		renderer->render(window->getWindow());
+		glfwSwapBuffers(window->getWindow());
+		glfwPollEvents();
+
     }
 
 	window->close();
