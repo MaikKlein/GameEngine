@@ -53,7 +53,7 @@ int main()
     glewInit();
     
 	//our shader
-	Shader* redShader = new Shader("//00_Renderer//minimal.vert", "//00_Renderer//minimal.frag");
+	Shader* redShader = new Shader("//ColorShader//colorShader.vert", "//ColorShader//colorShader.frag");
 
 	//our renderer
 	Renderer* renderer = new Renderer();
