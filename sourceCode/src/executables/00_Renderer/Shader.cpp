@@ -8,93 +8,86 @@
 #include <windows.h> 
 #include <conio.h>
 
-#include "ShaderHandle.h"
-
-std::string vertexShaderPath;
-std::string fragmentShaderPath;
+#include "Shader.h"
 
 /*
 initialize the shaderHandle and loads a vertex and a fragment shader
 */
-ShaderHandle::ShaderHandle(std::string vertexShader, std::string fragmentShader)
+Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
 {
 	std::cout << "Shader was initialized" << std::endl;
 
 	//set the Path of the shaders
-	this->vertexShaderPath += SHADERS_PATH + vertexShader;
-	this->fragmentShaderPath += SHADERS_PATH +fragmentShader;
+	m_vertexShaderPath += SHADERS_PATH + vertexShaderPath;
+	m_fragmentShaderPath += SHADERS_PATH +fragmentShaderPath;
 	
 	//Open, compile and link Shader
-	makeShaderProgram(&vertexShaderPath[0],&fragmentShaderPath[0]);
+	makeShaderProgram(&m_vertexShaderPath[0],&m_fragmentShaderPath[0]);
 }
 
-ShaderHandle::~ShaderHandle()
+/*
+initialize the shaderHandle and loads a vertex, geometry, tesselation & fragmen shader
+if you don't want to use a geometry & fragment shader, then set the string to ""
+*/
+Shader::Shader(std::string vertexShaderPath, std::string geometryShaderPath, std::string tesselationShaderPath, std::string fragmentShaderPath)
+{
+	std::cout << "Shader was initialized" << std::endl;
+
+	//check which shader we are using and set the path of the shaders
+	if (vertexShaderPath != ""){
+		m_vertexShaderPath += SHADERS_PATH + vertexShaderPath;
+		m_usingVertexShader = true;
+	}
+	else{
+		m_usingVertexShader = false;
+	}	
+	if (fragmentShaderPath != ""){
+		m_fragmentShaderPath += SHADERS_PATH + fragmentShaderPath;
+		m_usingFragmentShader = true;
+	}
+	else{
+		m_usingFragmentShader = false;
+	}
+	if (geometryShaderPath != ""){
+		m_geometryShaderPath += SHADERS_PATH + geometryShaderPath;
+		m_usingGeometryShader = true;
+	}
+	else{
+		m_usingGeometryShader = false;
+	}
+
+	if (tesselationShaderPath != ""){
+		m_tesselationShaderPath += SHADERS_PATH + tesselationShaderPath;
+		m_usingTesselationShader = true;
+	}
+	else{
+		m_usingTesselationShader = false;
+	}
+
+	//Open, compile and link the neccesary Shader
+//	makeShaderProgram(m_usingVertexShader, m_usingGeometryShader, m_usingTesselationShader, m_usingFragmentShader);
+}
+
+Shader::~Shader()
 {
 }
 
 /*
-just for testing
-*/
-GLuint ShaderHandle::createColorShaderProgram(float r, float g, float b) {
-	//compile vertex shader
-	const GLchar *vs_source = "\
-	#version 330 \n\
-	in vec4 positionAttribute;\
-	void main(){\
-	gl_Position = positionAttribute;\
-	}";
-	
-	const GLint vs_source_size = strlen(vs_source);
-	GLuint vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShaderHandle, 1, &vs_source, &vs_source_size);
-	glCompileShader(vertexShaderHandle);
-	checkShader(vertexShaderHandle);
-
-	//compile fragment shader
-	const GLchar *fs_source = "\
-	#version 330 \n\
-	out vec4 fragmentColor;\
-	uniform vec3 color;\
-	void main(){ \
-	fragmentColor = vec4(color, 1.0);\
-	}";
-	
-	const GLint fs_source_size = strlen(fs_source);
-	GLuint fragmentShaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShaderHandle, 1, &fs_source, &fs_source_size);
-	glCompileShader(fragmentShaderHandle);
-	checkShader(fragmentShaderHandle);
-
-	//link shader programs
-	GLuint programHandle = glCreateProgram();
-	glAttachShader(programHandle, vertexShaderHandle);
-	glAttachShader(programHandle, fragmentShaderHandle);
-	glBindAttribLocation(programHandle, 0, "positionAttribute");
-	glLinkProgram(programHandle);
-
-	GLuint colorHandle = glGetUniformLocation(programHandle, "color");
-	glUseProgram(programHandle);
-	glUniform3f(colorHandle, r, g, b);
-
-	return programHandle;
-}
-
-/**
 * Checks a shader for compilation errors
 *
 * @param shaderHandle
 * The id of the shader to check
 */
-void ShaderHandle::checkShader(GLuint shaderHandle) {
+void Shader::checkShader(GLuint shader) {
 	GLint status;
-	glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &status);
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 
 	if (status == GL_FALSE) {
 		GLint infoLogLength;
-		glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &infoLogLength);
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
 
 		GLchar* infoLog = new GLchar[infoLogLength + 1];
-		glGetShaderInfoLog(shaderHandle, infoLogLength, NULL, infoLog);
+		glGetShaderInfoLog(shader, infoLogLength, NULL, infoLog);
 
 		std::cout << "ERROR: Unable to compile shader" << std::endl << infoLog << std::endl;
 		delete[] infoLog;
@@ -115,7 +108,7 @@ void ShaderHandle::checkShader(GLuint shaderHandle) {
 * \n Recommendation: Define compiler flag @c -D"SHADERS_PATH" and call
 * @a SHADERS_PATH"[filename]"
 */
-void ShaderHandle::loadShaderSource(GLint shaderHandle, const char* fileName) {
+void Shader::loadShaderSource(GLint shader, const char* fileName) {
 	std::string fileContent;
 	std::string line;
 
@@ -129,13 +122,14 @@ void ShaderHandle::loadShaderSource(GLint shaderHandle, const char* fileName) {
 		file.close();
 		std::cout << "SUCCESS: Opened file " << fileName << std::endl;
 	}
-	else
+	else{
 		std::cout << "ERROR: Unable to open file " << fileName << std::endl;
+	}
 
 	const char* source = fileContent.c_str();
 	const GLint source_size = strlen(source);
 
-	glShaderSource(shaderHandle, 1, &source, &source_size);
+	glShaderSource(shader, 1, &source, &source_size);
 }
 
 /**
@@ -152,7 +146,7 @@ void ShaderHandle::loadShaderSource(GLint shaderHandle, const char* fileName) {
 * @return
 * The id of a created the shader program
 */
-GLuint ShaderHandle::makeShaderProgram(const char* vertexShaderName, const char* fragmentShaderName) {
+GLuint Shader::makeShaderProgram(const char* vertexShaderName, const char* fragmentShaderName) {
 	//compile vertex shader
 	GLuint vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER);
 	loadShaderSource(vertexShaderHandle, vertexShaderName);

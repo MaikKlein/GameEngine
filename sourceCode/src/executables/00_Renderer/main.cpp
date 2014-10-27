@@ -1,15 +1,8 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <windows.h> 
-#include <conio.h>
-#include <vector>
-#include <glm/glm.hpp>
+#include "Defs.h"
 
 #include "Renderer.h"
 #include "Window.h"
-#include "ShaderHandle.h"
+#include "Shader.h"
 #include "FBO.h"
 
 //Example
@@ -59,8 +52,8 @@ int main()
 	
     glewInit();
     
-	//our shaderhandler, which handles the shader
-	ShaderHandle* shaderhandler = new ShaderHandle("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag");
+	//our shader
+	Shader* redShader = new Shader("//00_Renderer//minimal.vert", "//00_Renderer//minimal.frag");
 
 	//our renderer
 	Renderer* renderer = new Renderer();
@@ -83,12 +76,12 @@ int main()
 
 		//Szene drawen
 		glViewport(0, 0, 800, 600);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		renderer->render(window->getWindow());
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
-
+		
     }
 
 	window->close();
