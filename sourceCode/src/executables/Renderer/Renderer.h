@@ -1,11 +1,11 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <vector>
-#include <glm/glm.hpp>
+#include "Defs.h"
 
+/*
+Need Information
+*/
 class Renderer
 {
 public:

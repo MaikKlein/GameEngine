@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <iostream>
+#include <cstring>
+#include <string>
+#include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -22,6 +25,7 @@
 #define SHADOW_TEXTURE_UNIT GL_TEXTURE2
 #define CUBE_MAP_TEXTURE_UNIT GL_TEXTURE3
 
+//Shader
 #define VERTEX_SHADER_BIT 1
 #define TESS_CONTROL_BIT 2
 #define TESS_EVAL_BIT 4
@@ -40,7 +44,6 @@
 #define FOG_EXP2 3
 
 //Color
-
 #define darkgrey glm::vec3( 0.2, 0.2, 0.2)
 #define gold glm::vec3( 1.0, 0.84, 0.0)
 #define red glm::vec3( 1.0, 0.0, 0.0)
@@ -51,6 +54,7 @@
 #define black glm::vec3( 0.0, 0.0, 0.0)
 #define white glm::vec3( 1.0, 1.0, 1.0)
 
+//FBO
 #define INVALID_OGL_VALUE 0xFFFFFFFF
 
 #endif

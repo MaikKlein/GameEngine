@@ -1,10 +1,3 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <vector>
-#include <glm/glm.hpp>
-
 #include "Renderer.h"
 
 /*
