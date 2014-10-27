@@ -1,5 +1,4 @@
 #include "Defs.h"
-
 #include "Renderer.h"
 #include "Window.h"
 #include "Shader.h"
@@ -53,7 +52,7 @@ int main()
     glewInit();
     
 	//our shader
-	Shader* redShader = new Shader("//00_Renderer//minimal.vert", "//00_Renderer//minimal.frag");
+	Shader* redShader = new Shader("//ColorShader//colorShader.vert", ""/*geom*/, "" /*tessC*/, ""/*tessE*/, "//ColorShader//colorShader.frag", ""/*com*/);
 
 	//our renderer
 	Renderer* renderer = new Renderer();
@@ -80,8 +79,7 @@ int main()
 
 		renderer->render(window->getWindow());
 		glfwSwapBuffers(window->getWindow());
-		glfwPollEvents();
-		
+		glfwPollEvents();		
     }
 
 	window->close();

@@ -1,35 +1,10 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <string>
-#include <cstring>
-#include <fstream>
-#include <windows.h> 
-#include <conio.h>
-
 #include "Shader.h"
 
 /*
-initialize the shaderHandle and loads a vertex and a fragment shader
+initialize the shader and loads a vertex, geometry, tesselation, fragment & compute shader
+if you don't want to use a shader, then set the string to ""
 */
-Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
-{
-	std::cout << "Shader was initialized" << std::endl;
-
-	//set the Path of the shaders
-	m_vertexShaderPath += SHADERS_PATH + vertexShaderPath;
-	m_fragmentShaderPath += SHADERS_PATH +fragmentShaderPath;
-	
-	//Open, compile and link Shader
-	makeShaderProgram(&m_vertexShaderPath[0],&m_fragmentShaderPath[0]);
-}
-
-/*
-initialize the shaderHandle and loads a vertex, geometry, tesselation & fragmen shader
-if you don't want to use a geometry & fragment shader, then set the string to ""
-*/
-Shader::Shader(std::string vertexShaderPath, std::string geometryShaderPath, std::string tesselationShaderPath, std::string fragmentShaderPath)
+Shader::Shader(std::string vertexShaderPath, std::string geometryShaderPath, std::string tesselationControlShaderPath, std::string tesselationEvaluationShaderPath, std::string fragmentShaderPath, std::string computeShaderPath)
 {
 	std::cout << "Shader was initialized" << std::endl;
 
@@ -56,16 +31,24 @@ Shader::Shader(std::string vertexShaderPath, std::string geometryShaderPath, std
 		m_usingGeometryShader = false;
 	}
 
-	if (tesselationShaderPath != ""){
-		m_tesselationShaderPath += SHADERS_PATH + tesselationShaderPath;
+	if (tesselationControlShaderPath != "" && tesselationEvaluationShaderPath != ""){
+		m_tesselationControlShaderPath += SHADERS_PATH + tesselationControlShaderPath;
+		m_tesselationEvaluationShaderPath += SHADERS_PATH + tesselationEvaluationShaderPath;
 		m_usingTesselationShader = true;
 	}
 	else{
 		m_usingTesselationShader = false;
 	}
 
+	if (computeShaderPath != ""){
+		m_computeShaderPath += SHADERS_PATH + computeShaderPath;
+	}
+	else{
+		m_usingComputeShader = false;
+	}
+
 	//Open, compile and link the neccesary Shader
-//	makeShaderProgram(m_usingVertexShader, m_usingGeometryShader, m_usingTesselationShader, m_usingFragmentShader);
+	makeShaderProgram(m_usingVertexShader, m_usingGeometryShader, m_usingTesselationShader, m_usingFragmentShader, m_usingComputeShader);
 }
 
 Shader::~Shader()
@@ -132,7 +115,7 @@ void Shader::loadShaderSource(GLint shader, const char* fileName) {
 	glShaderSource(shader, 1, &source, &source_size);
 }
 
-/**
+/*
 * A combination of loadShaderSource(), checkShader() and shader compilation.
 *
 * @param  vertexShaderName
@@ -146,25 +129,79 @@ void Shader::loadShaderSource(GLint shader, const char* fileName) {
 * @return
 * The id of a created the shader program
 */
-GLuint Shader::makeShaderProgram(const char* vertexShaderName, const char* fragmentShaderName) {
-	//compile vertex shader
-	GLuint vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER);
-	loadShaderSource(vertexShaderHandle, vertexShaderName);
-	glCompileShader(vertexShaderHandle);
-	checkShader(vertexShaderHandle);
+GLuint Shader::makeShaderProgram(bool usingVertexShader, bool usingGeometryShader, bool usingTesselationShader, bool usingFragmentShader, bool usingComputeShader) {
 
-	//compile fragment shader
-	GLuint fragmentShaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
-	loadShaderSource(fragmentShaderHandle, fragmentShaderName);
-	glCompileShader(fragmentShaderHandle);
-	checkShader(fragmentShaderHandle);
+	GLuint vertexShaderID, geometryShaderID, tesselationControlShaderID, tesselationEvaluationShaderID, fragmentShaderID, computeShaderID;
+
+	if (usingVertexShader){
+		//compile vertex shader
+		const char* vertexShaderName = &m_vertexShaderPath[0];
+		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+		loadShaderSource(vertexShaderID, vertexShaderName);
+		glCompileShader(vertexShaderID);
+		checkShader(vertexShaderID);
+	}
+
+	if (usingGeometryShader){
+		//compile geometry shader
+		const char* geometryShaderName = &m_geometryShaderPath[0];
+		geometryShaderID = glCreateShader(GL_GEOMETRY_SHADER);
+		loadShaderSource(geometryShaderID, geometryShaderName);
+		glCompileShader(geometryShaderID);
+		checkShader(geometryShaderID);
+	}
+
+	if (usingTesselationShader){
+		//compile tesselation shader
+		const char* tesselationControlShaderName = &m_tesselationControlShaderPath[0];
+		tesselationControlShaderID = glCreateShader(GL_TESS_CONTROL_SHADER);
+		loadShaderSource(tesselationControlShaderID, tesselationControlShaderName);
+		glCompileShader(tesselationControlShaderID);
+		checkShader(tesselationControlShaderID);
+
+		const char* tesselationEvaluationShaderName = &m_tesselationEvaluationShaderPath[0];
+		tesselationEvaluationShaderID = glCreateShader(GL_TESS_EVALUATION_SHADER);
+		loadShaderSource(tesselationEvaluationShaderID, tesselationEvaluationShaderName);
+		glCompileShader(tesselationEvaluationShaderID);
+		checkShader(tesselationEvaluationShaderID);
+
+	}
+
+	if (usingFragmentShader){
+		//compile fragment shader
+		const char* fragmentShaderName = &m_fragmentShaderPath[0];
+		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+		loadShaderSource(fragmentShaderID, fragmentShaderName);
+		glCompileShader(fragmentShaderID);
+		checkShader(fragmentShaderID);
+	}
+
+	if (usingComputeShader){
+		//compile compute shader
+		const char* computeShaderName = &m_computeShaderPath[0];
+		computeShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+		loadShaderSource(computeShaderID, computeShaderName);
+		glCompileShader(computeShaderID);
+		checkShader(computeShaderID);
+	}
 
 	//link shader programs
 	GLuint programHandle = glCreateProgram();
-	glAttachShader(programHandle, vertexShaderHandle);
-	glAttachShader(programHandle, fragmentShaderHandle);
-	glLinkProgram(programHandle);
 
+	if (m_usingVertexShader)
+		glAttachShader(programHandle, vertexShaderID);
+	if (m_usingGeometryShader)
+		glAttachShader(programHandle, geometryShaderID);
+	if (m_usingTesselationShader)
+		glAttachShader(programHandle, tesselationControlShaderID);
+	if (m_usingTesselationShader)
+		glAttachShader(programHandle, tesselationEvaluationShaderID);
+	if (m_usingFragmentShader)
+		glAttachShader(programHandle, fragmentShaderID);
+	if (m_usingComputeShader)
+		glAttachShader(programHandle, computeShaderID);
+	
+	glLinkProgram(programHandle);
 	glUseProgram(programHandle);
 
 	//return programHandle;
