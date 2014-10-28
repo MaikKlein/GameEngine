@@ -9,19 +9,19 @@ public:
 	///The constructor of the scenegraph
 	/**At the beginning the scenegraph just needs a name, which is given by the level. 
 		Also the constructor adds a first Node-Object which will be used as the root-Node from now on*/
-	Scenegraph(const char* scenegraphName);
+	Scenegraph(std::string scenegraphName);
 	~Scenegraph();
 
 	///A getter for the Name of the Scenegraph
 	/**Returns the name of the scenegraph as a const char*/
-	const char* getScenegraphName();
+	std::string* getScenegraphName();
 
 	///A getter for the Root Node
 	/**Returns the m_rootNode Node-object of the scenegraph*/
 	Node* getRootNode();
 
 protected:
-	const char* m_scenegraphName;
+	std::string m_scenegraphName;
 	Node* m_rootNode;
 
 private: 

@@ -5,14 +5,19 @@
 int main()
 {
 
+	/*TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA*/
+
 	//Nur Testmethoden um die grundlegende Funktionalität zu prüfen
 	Level level("TestLevel");
 
 	Node node("TestNode");
 
+	/*Test: Szenegraphen Methoden
+	  SUCCESS*/
 	Scenegraph* scene = level.getScenegraph();
+	std::string* sceneName = scene->getScenegraphName();
 
-	/*TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA*/
+
 
 	//Test: Modelmatrix setzen
 	//SUCCESS
