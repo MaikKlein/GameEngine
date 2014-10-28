@@ -33,14 +33,14 @@
 class FBO
 {
 public:
-	FBO(unsigned int width, unsigned int height);
-	FBO(unsigned int width, unsigned int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture);
+	FBO(int width, int height);
+	FBO(int width, int height, int numColorTextures, bool depthTexture, bool stencilTexture);
 	~FBO();
 
 	void bind();
 	void unbind();
 
-	void generateTextures(unsigned int width, unsigned int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture);
+	void generateTextures(int width, int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture);
 	void FBO::generateColorTexture(std::vector<GLenum> &drawBuffers, unsigned int index);
 	void FBO::generateDepthTexture();
 	void FBO::generateStencilTexture();

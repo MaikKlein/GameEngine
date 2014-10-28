@@ -4,7 +4,7 @@
 Constructor - create a color texture
 you can get this with getColorTexture(0)??
 */
-FBO::FBO(unsigned int width, unsigned int height)
+FBO::FBO(int width, int height)
 {
 	generateTextures(width, height, 1, false, false);
 }
@@ -14,7 +14,7 @@ Constructor - create a certain number of color textures and depth and stencil te
 you can get the textures this e.g. with getColorTexture(0), getDepthTexture() & getSzencilTexture()??
 
 */
-FBO::FBO(unsigned int width, unsigned int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture)
+FBO::FBO(int width, int height, int numColorTextures, bool depthTexture, bool stencilTexture)
 {
 	generateTextures(width, height, numColorTextures, depthTexture, stencilTexture);
 }
@@ -49,7 +49,7 @@ void FBO::unbind()
 generate a depth and a stencil texture and certain number of color textures.
 this function calls generateColorTexture(), generateDepthTexture() & generateStencilTexture()
 */
-void FBO::generateTextures(unsigned int width, unsigned int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture)
+void FBO::generateTextures(int width, int height, unsigned int numColorTextures, bool depthTexture, bool stencilTexture)
 {
 	//cleaning up all textures
 	reset();

@@ -58,30 +58,31 @@ int main()
 	Renderer* renderer = new Renderer();
 	renderer->loadObject(&m_vertices);
 
-	FBO fbo(800, 600);
+	int height = 800;
+	//BUG!!!
+	//height = window->getHeight();
+	FBO fbo(height, 600);
 
 	//Gameloop
     while( !glfwWindowShouldClose(window->getWindow()))
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		timeMeasuring(2000);
 
 		//FBO
 		fbo.bind();
 		glViewport(0, 0, 800, 600);
-		//glClear(GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		renderer->render(window->getWindow());
 		fbo.unbind();
 
 		//Szene drawen
 		glViewport(0, 0, 800, 600);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		renderer->render(window->getWindow());
+
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();		
     }
-
 	window->close();
     return 0;
 }

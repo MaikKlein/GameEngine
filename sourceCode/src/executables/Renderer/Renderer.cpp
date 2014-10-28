@@ -21,7 +21,6 @@ get an object, now only vertices, and load it to the VBO & VAO
 */
 void Renderer::loadObject(std::vector<glm::vec3> *m_vertices)
 {
-
 	numberOfPoints = m_vertices->size();
 
 	GLuint vertexBuffer;
