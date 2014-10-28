@@ -2,30 +2,42 @@
 #define SHADER_H
 
 #include "Defs.h"
+#include <string>
 
-/*
-Need more Information
-*/
-class Shader
-{
-public:
-	Shader(std::string vertexShaderPath, std::string geometryShaderPath, std::string tesselationControlShaderPath, std::string tesselationEvaluationShaderPath, std::string fragmentShaderPath, std::string computeShader);
-	~Shader();
-	void checkShader(GLuint shader);
-	void loadShaderSource(GLint shader, const char* fileName);
-	GLuint makeShaderProgram(bool usingVertexShader, bool usingGeometryShader, bool usingTesselationShader, bool usingFragmentShader, bool usingComputeShader);
-
-private:
-	std::string m_vertexShaderPath;
-	std::string m_geometryShaderPath;
-	std::string m_tesselationControlShaderPath;
-	std::string m_tesselationEvaluationShaderPath;
-	std::string m_fragmentShaderPath;
-	std::string m_computeShaderPath;
-	bool m_usingVertexShader;
-	bool m_usingGeometryShader;
-	bool m_usingTesselationShader;
-	bool m_usingFragmentShader;
-	bool m_usingComputeShader;
+enum ShaderType{
+  VERTEX_SHADER = 0x8B31,
+  FRAGMENT_SHADER = 0x8B30,
+  GEOMETRY_SHADER = 0x8DD9,
 };
+// Loads the shader source from a location
+std::string loadShaderSource(std::string path);
+
+/// FIXME: Doesn't check properly - Validates the shader 
+void checkShader(GLuint shader);
+
+struct BaseShader{
+  GLuint handle;
+  BaseShader(const std::string &shaderSource, ShaderType shaderType);
+};
+struct VertexShader : public BaseShader{
+  VertexShader(const std::string &shaderSource) : BaseShader(shaderSource, VERTEX_SHADER){}
+};
+struct FragmentShader : public BaseShader{
+  FragmentShader(const std::string &shaderSource) : BaseShader(shaderSource, FRAGMENT_SHADER){}
+};
+struct GeometryShader : public BaseShader{
+  GeometryShader(const std::string &shaderSource) : BaseShader(shaderSource, GEOMETRY_SHADER){}
+};
+/**
+TODO: Add additional shader
+*/
+
+// Shader program
+struct ShaderProgram{
+  GLuint handle;
+  ShaderProgram(const VertexShader &vs, const FragmentShader &fs);
+  void bind();
+  void unbind();
+};
+
 #endif

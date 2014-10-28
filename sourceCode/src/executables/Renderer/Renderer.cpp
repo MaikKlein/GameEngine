@@ -44,8 +44,6 @@ void Renderer::render(GLFWwindow* window)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, numberOfPoints);
-	glfwSwapBuffers(window);
-	glfwPollEvents();
 }
 
 /*
