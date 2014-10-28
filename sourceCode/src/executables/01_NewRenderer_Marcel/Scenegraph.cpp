@@ -1,17 +1,22 @@
 #include "Scenegraph.h"
 
+Scenegraph::Scenegraph()
+{
+	Node root("Root");
+	setRootNode(root);
+}
 
 Scenegraph::Scenegraph(std::string scenegraphName)
 {
 	m_scenegraphName = scenegraphName;
 
-	Node rootNode("Root");
-    setRootNode(&rootNode);
+	Node root("Root");
+	setRootNode(root);
 }
-
 
 Scenegraph::~Scenegraph()
 {
+
 }
 
 std::string* Scenegraph::getScenegraphName()
@@ -19,12 +24,17 @@ std::string* Scenegraph::getScenegraphName()
 	return &m_scenegraphName;
 }
 
-Node* Scenegraph::getRootNode()
+void Scenegraph::setScenegraphName(std::string scenegraphName)
 {
-	return m_rootNode;
+	m_scenegraphName = scenegraphName;
 }
 
-void Scenegraph::setRootNode(Node* rootNode)
+Node* Scenegraph::getRootNode()
+{
+	return &m_rootNode;
+}
+
+void Scenegraph::setRootNode(Node rootNode)
 {
 	m_rootNode = rootNode;
 }

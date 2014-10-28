@@ -2,7 +2,9 @@
 
 Node::Node()
 {
+	m_nodeName = "Default";
 
+	setIdentityMatrix_ModelMatrix();
 }
 
 Node::Node(std::string nodeName)

@@ -8,18 +8,17 @@ int main()
 	/*TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA*/
 
 	//Nur Testmethoden um die grundlegende Funktionalität zu prüfen
-	Level level("TestLevel");
+	//Level level("TestLevel");
 
 	Node node("TestNode");
 
 	/*Test: Szenegraphen Methoden
 	  SUCCESS*/
-	Scenegraph* scene = level.getScenegraph();
-	std::string* sceneName = scene->getScenegraphName();
-	Node* roodNode = scene->getRootNode();
-	/*ERROR:*/
-	roodNode->addChildrenNode(&node);
-
+	Scenegraph* scene = new Scenegraph();
+	scene->getRootNode();
+	Node* sceneNode = new Node();
+	scene->getRootNode()->addChildrenNode(sceneNode);
+	
 
 
 	//Test: Modelmatrix setzen

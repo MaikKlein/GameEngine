@@ -9,8 +9,8 @@ Level::Level(const char* levelName)
 	//An dieser stelle besser einen unique_ptr verwenden
 	//vielleicht auch move verwenden, weiﬂ nicht ob das Sinnvoll ist oder hier anwendbar
 	//Vielleicht noch einen Zusatz an den levelNamen h‰ngen, damit die Namen nicht exakt gleich sind
-	Scenegraph scenegraph(levelName);
-	addScenegraph(&scenegraph);
+	//Scenegraph scenegraph(levelName);
+	//addScenegraph(&scenegraph);
 }
 
 
