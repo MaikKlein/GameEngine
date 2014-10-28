@@ -9,12 +9,12 @@ class Node
 public:
 	///The constructor of a Node
 	/*At the beginning a Node just needs a name, the m_modelMatrix will be set to the identity matrix*/
-	Node(const char* nodeName);
+	Node(std::string nodeName);
 	~Node();
 
 	///A getter for the name of a Node
 	/*Returns the name of the Node as const char*/
-	const char* getNodeName();
+	std::string* getNodeName();
 
 	///A getter for the parent of the Node
 	/*Returns a Node Object which represent the Parent Node*/
@@ -25,12 +25,13 @@ public:
 	void setParentNode(Node* parentNode);
 
 	///A add-Method for the list of children 
-	/*A NodeObject is given by the user and the node puts the new node into his m_childrenSet as a new children*/
+	/*A NodeObject is given by the user and the node puts the new node into his m_childrenSet as a new children
+	  The childrenNode m_parentNode will be set automatically*/
 	void addChildrenNode(Node* childrenNode);
 	
 	///A delete Method to delete a child
 	/*The user gives the method a name and the method iterates over the m_childrenSet and deletes the Child with the nodeName*/
-	void deleteChildrenNode(const char* nodeName);
+	void deleteChildrenNode(std::string nodeName);
 
 	///A method to clear the whole set of children
 	/*Every Child Node in m_childrenNode will be deleted*/
@@ -38,7 +39,7 @@ public:
 
 	///A getter Method for a children Node
 	/*This Method iterates over the m_childrenSet and returns the Node with the nodeName*/
-	Node* getChildrenNode(const char* nodeName);
+	Node* getChildrenNode(std::string nodeName);
 
 	///A getter Method for the Modelmatrix
 	/*Returns the Modelmatrix of the current Node as a matrix*/
@@ -104,7 +105,7 @@ public:
 	*/
 
 protected:
-	const char* m_nodeName;
+	std::string m_nodeName;
 	Node* m_parentNode;
 	std::vector<Node*> m_childrenSet;
 

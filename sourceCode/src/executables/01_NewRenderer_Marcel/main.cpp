@@ -10,7 +10,6 @@ int main()
 
 	Node node("TestNode");
 
-	Node* root = level.getScenegraph()->getRootNode();
 	Scenegraph* scene = level.getScenegraph();
 
 	/*TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA TEST AREA*/
@@ -43,7 +42,7 @@ int main()
 
 	/*Test: Getter Methoden
 	SUCCESS*/
-	const char* name = node.getNodeName();
+	std::string* name = node.getNodeName();
 	glm::mat4 modelMatrix = node.getModelMatrix();
 	glm::mat4 rotation = node.getRotationMatrix();
 	glm::mat4 translation = node.getTranslationMatrix();
@@ -51,8 +50,8 @@ int main()
 
 	/*Test: Parentnode setzen und zurückholen
 	SUCCESS*/
-	node.setParentNode(root);
-	Node* parent = node.getParentNode();
+	//node.setParentNode(root);
+	//Node* parent = node.getParentNode();
 
 	/*Test: Children hinzufügen und zurückholen, löschen und komplette childrenSet-Liste löschen
 	SUCCESS*/
@@ -68,6 +67,8 @@ int main()
 	//Da der rest funktioniert, ist der Szenegraph aber an sich erstmal benutzbar, den Bug muss ich halt fixen, mach ich auch dienstag
 	//level.getScenegraph()->getRootNode()->addChildrenNode(&node);
 	//root->addChildrenNode(&childrenOne);
+	
+
 
 	return 0;
 }
