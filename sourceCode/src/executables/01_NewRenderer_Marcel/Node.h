@@ -7,6 +7,7 @@
 class Node
 {
 public:
+	Node();
 	///The constructor of a Node
 	/*At the beginning a Node just needs a name, the m_modelMatrix will be set to the identity matrix*/
 	Node(std::string nodeName);
@@ -15,6 +16,10 @@ public:
 	///A getter for the name of a Node
 	/*Returns the name of the Node as const char*/
 	std::string* getNodeName();
+
+	///A Setter for the name of the Node
+	/*The m_nodeName will be set*/
+	void setNodeName(std::string nodeName);
 
 	///A getter for the parent of the Node
 	/*Returns a Node Object which represent the Parent Node*/

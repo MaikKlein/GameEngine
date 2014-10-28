@@ -1,5 +1,9 @@
 #include "Node.h"
 
+Node::Node()
+{
+
+}
 
 Node::Node(std::string nodeName)
 {
@@ -16,6 +20,11 @@ Node::~Node()
 std::string* Node::getNodeName()
 {
 	return &m_nodeName;
+}
+
+void Node::setNodeName(std::string nodeName)
+{
+	m_nodeName = nodeName;
 }
 
 Node* Node::getParentNode()

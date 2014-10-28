@@ -16,6 +16,9 @@ int main()
 	  SUCCESS*/
 	Scenegraph* scene = level.getScenegraph();
 	std::string* sceneName = scene->getScenegraphName();
+	Node* roodNode = scene->getRootNode();
+	/*ERROR:*/
+	roodNode->addChildrenNode(&node);
 
 
 
@@ -67,11 +70,6 @@ int main()
 	node.addChildrenNode(&childrenOne);
 	node.clearChildrenSet();
 
-	//ERROR: Hier krieg ich noch einen Error, grad keine Zeit mehr es zu verbessern, werde ich später machen
-	//Vermutung: Es liegt definitiv an daran, dass ich Pointer benutze, da wird irgendwas falsch gemacht
-	//Da der rest funktioniert, ist der Szenegraph aber an sich erstmal benutzbar, den Bug muss ich halt fixen, mach ich auch dienstag
-	//level.getScenegraph()->getRootNode()->addChildrenNode(&node);
-	//root->addChildrenNode(&childrenOne);
 	
 
 
