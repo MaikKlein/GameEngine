@@ -26,6 +26,8 @@ int main()
 	std::string* sceneName = scene->getSceneName();
 	scene->getScenegraph();
 	scene->setSceneName("Hallo");
+	scene->getScenegraph()->getRootNode()->addChildrenNode(sceneNode);
+	scene->getScenegraph()->getRootNode()->getChildrenNode("sceneNode");
 
 	//Test: Modelmatrix setzen
 	//SUCCESS
