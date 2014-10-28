@@ -1,6 +1,7 @@
 #include "Level.h"
 #include "Scenegraph.h"
 #include "Node.h"
+#include "Scene.h"
 
 int main()
 {
@@ -14,12 +15,17 @@ int main()
 
 	/*Test: Szenegraphen Methoden
 	  SUCCESS*/
-	Scenegraph* scene = new Scenegraph();
-	scene->getRootNode();
+	Scenegraph* scenegraph = new Scenegraph();
+	scenegraph->getRootNode();
 	Node* sceneNode = new Node();
-	scene->getRootNode()->addChildrenNode(sceneNode);
+	scenegraph->getRootNode()->addChildrenNode(sceneNode);
 	
-
+	/*Test: Scene  Methoden
+	  SUCCESS*/
+	Scene* scene = new Scene();
+	std::string* sceneName = scene->getSceneName();
+	scene->getScenegraph();
+	scene->setSceneName("Hallo");
 
 	//Test: Modelmatrix setzen
 	//SUCCESS
