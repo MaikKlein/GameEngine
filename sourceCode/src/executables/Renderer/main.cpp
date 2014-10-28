@@ -3,6 +3,9 @@
 #include "Window.h"
 #include "Shader.h"
 #include "FBO.h"
+#include "Node.h"
+#include "Scenegraph.h"
+#include "UniformManager.h"
 
 //Example
 std::vector<glm::vec3> m_vertices;
@@ -52,7 +55,7 @@ int main()
     glewInit();
     
 	//our shader
-	Shader* redShader = new Shader("//ColorShader//colorShader.vert", ""/*geom*/, "" /*tessC*/, ""/*tessE*/, "//ColorShader//colorShader.frag", ""/*com*/);
+	Shader* redShader = new Shader("//RedShader//redShader.vert", ""/*geom*/, "" /*tessC*/, ""/*tessE*/, "//RedShader//redShader.frag", ""/*com*/);
 
 	//our renderer
 	Renderer* renderer = new Renderer();
