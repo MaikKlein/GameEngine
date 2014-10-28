@@ -1,7 +1,7 @@
 #ifndef FBO_H
 #define FBO_H
 
-#include "Defs.h"
+#include "DefinitionAndInclude.h"
 
 /*
 * @brief Class for OpenGL frame buffer objects (FBOs).

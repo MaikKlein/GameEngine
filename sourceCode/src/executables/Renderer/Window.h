@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "Defs.h"
+#include "DefinitionAndInclude.h"
 
 /*
 Need more Information

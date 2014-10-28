@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "Defs.h"
+#include "DefinitionAndInclude.h"
 
 /*
 Need more Information
