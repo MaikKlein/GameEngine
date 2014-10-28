@@ -1,30 +1,40 @@
 #include "Scenegraph.h"
 
+Scenegraph::Scenegraph()
+{
+	Node root("Root");
+	setRootNode(root);
+}
 
-Scenegraph::Scenegraph(const char* scenegraphName)
+Scenegraph::Scenegraph(std::string scenegraphName)
 {
 	m_scenegraphName = scenegraphName;
 
-	Node rootNode("Root");
-	setRootNode(&rootNode);
+	Node root("Root");
+	setRootNode(root);
 }
-
 
 Scenegraph::~Scenegraph()
 {
+
 }
 
-const char* Scenegraph::getScenegraphName()
+std::string* Scenegraph::getScenegraphName()
 {
-	return m_scenegraphName;
+	return &m_scenegraphName;
+}
+
+void Scenegraph::setScenegraphName(std::string scenegraphName)
+{
+	m_scenegraphName = scenegraphName;
 }
 
 Node* Scenegraph::getRootNode()
 {
-	return m_rootNode;
+	return &m_rootNode;
 }
 
-void Scenegraph::setRootNode(Node* rootNode)
+void Scenegraph::setRootNode(Node rootNode)
 {
 	m_rootNode = rootNode;
 }
