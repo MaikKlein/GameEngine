@@ -4,12 +4,13 @@
 #include "Defs.h"
 #include <string>
 
+// Do I really need to do this? Better use something different than GLEW
 enum ShaderType{
   VERTEX_SHADER = 0x8B31,
   FRAGMENT_SHADER = 0x8B30,
   GEOMETRY_SHADER = 0x8DD9,
 };
-// Loads the shader source from a location
+/// Loads the shader source from a location
 std::string loadShaderSource(std::string path);
 
 /// FIXME: Doesn't check properly - Validates the shader 
@@ -32,12 +33,18 @@ struct GeometryShader : public BaseShader{
 TODO: Add additional shader
 */
 
-// Shader program
-struct ShaderProgram{
+template<typename ... Args>
+void attachShaders(GLuint handle, GLuint shaderHandle, Args ...args);
+void attachShaders(GLuint handle, GLuint shaderHandle);
+
+class ShaderProgram{
+
+public:
   GLuint handle;
   ShaderProgram(const VertexShader &vs, const FragmentShader &fs);
-  void bind();
-  void unbind();
+  void bind() const;
+  void unbind() const;
 };
 
 #endif
+

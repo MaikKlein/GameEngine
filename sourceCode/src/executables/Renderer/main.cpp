@@ -1,11 +1,11 @@
 #include "Defs.h"
 #include "Renderer.h"
 #include "Window.h"
-#include "Shader.h"
+#include "Shader.h"            
+#include "Buffer.hpp"
 #include "FBO.h"
 
 //Example
-std::vector<glm::vec3> m_vertices;
 
 /*
 measure the time for a certain number of loops
@@ -39,10 +39,12 @@ and renderering the object in the gameloop
 int main()
 {
   //our example
-  m_vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
-  m_vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
-  m_vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
-  m_vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
+  std::vector<glm::vec3> vertices;
+  vertices.push_back(glm::vec3(0.5, -0.5, 0.0));
+  vertices.push_back(glm::vec3(-0.5, -0.5, 0.0));
+  vertices.push_back(glm::vec3(0.5, 0.5, 0.0));
+  vertices.push_back(glm::vec3(-0.5, 0.5, 0.0));
+
 
   glfwInit();
 
@@ -54,31 +56,19 @@ int main()
   VertexShader vs(loadShaderSource(SHADERS_PATH + std::string("//ColorShader//colorShader.vert")));
   FragmentShader fs(loadShaderSource(SHADERS_PATH + std::string("//ColorShader//colorShader.frag")));
   ShaderProgram p(vs, fs);
-  p.bind();
   //our renderer
-  Renderer renderer;
-  renderer.loadObject(&m_vertices);
+  OpenGL3Context context;
+  Renderer renderer(context);
+  Buffer<glm::vec3> buffer(vertices,STATIC_DRAW);
 
-  FBO fbo(800, 600);
+  //FBO fbo(800, 600);
 
   //Gameloop
   while (!glfwWindowShouldClose(window.getWindow()))
   {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     timeMeasuring(2000);
-
-   // //FBO
-   // fbo.bind();
-   // glViewport(0, 0, 800, 600);
-   // //glClear(GL_DEPTH_BUFFER_BIT);
-   // renderer->render(window.getWindow());
-   // fbo.unbind();
-
-    //Szene drawen
-    glViewport(0, 0, 800, 600);
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    renderer.render(window.getWindow());
+    renderer.draw(buffer,p);
     glfwSwapBuffers(window.getWindow());
     glfwPollEvents();
   }
