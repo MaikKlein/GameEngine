@@ -28,7 +28,7 @@ public:
 	/*Returns the m_rootNode as a Node object*/
 	Node* getRootNode();
 
-private:
+protected:
 	Node m_rootNode;
 	std::string m_scenegraphName;
 };

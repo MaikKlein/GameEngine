@@ -19,7 +19,7 @@ int main(){
 
 	//We initialize the renderer
 	//The only question we ask us are: What do we want to be rendered (Object) and which way we want it to be rendered (Shader)
-	Renderer* renderer = new Renderer("\\00_Renderer\\minimal.vert", "\\00_Renderer\\minimal.frag", rect);
+	Renderer* renderer = new Renderer("\\RedShader\\redShader.vert", "\\RedShader\\redShader.frag", rect);
 
 	//we start the renderer
 	renderer->start();

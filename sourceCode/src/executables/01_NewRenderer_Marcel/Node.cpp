@@ -163,3 +163,13 @@ void Node::setIdentityMatrix_ModelMatrix()
 {
 	m_modelMatrix = glm::mat4(1);
 }
+
+void Node::addGeometry(Geometry* geometry)
+{
+	m_geometry = geometry;
+}
+
+Geometry* Node::getGeometry()
+{
+	return m_geometry;
+}
