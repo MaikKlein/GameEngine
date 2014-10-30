@@ -14,18 +14,18 @@ std::vector<glm::vec3> m_vertices;
 measure the time for a certain number of loops
 */
 double startTime = glfwGetTime();
-double time = 0.0;
+double time1 = 0.0;
 int i = 0;
 void timeMeasuring(int numberOfLoops){
 	float deltaT = glfwGetTime() - startTime;
 	if (i<numberOfLoops){
-		time += deltaT;
+		time1 += deltaT;
 		i++;
 	}
 	else{
-		time = (int)(time * 100) / 100.0;
-		std::cout << time << "s per "<<numberOfLoops<<" loops" << std::endl;
-		time = 0;
+		time1 = (int)(time1 * 100) / 100.0;
+		std::cout << time1 << "s per "<<numberOfLoops<<" loops" << std::endl;
+		time1 = 0;
 		i = 0;
 	}
 	startTime = glfwGetTime();
