@@ -112,16 +112,20 @@ int main()
 
 	testScene->getScenegraph()->getRootNode()->addChildrenNode(testNode);
 	testScene->getScenegraph()->getRootNode()->getChildrenNode("testNode");
+
+	//std::cout << testNode->getNodeName() << std::endl;
+
 	//ERROR: Dieser Aufruf scheitert, muss aber für eine Iteration über den Szenegraphen funktionieren!!
 	// Das Problem ist, dass wir das Objekt aus einer Liste holen und dann versuchen die geomterie zu holen
+	testScene->getScenegraph()->getRootNode()->getChildrenNode("testNode")->getGeometry()->loadBufferData();
 	/*Node* testNode2 = std::move(testScene->getScenegraph()->getRootNode()->getChildrenNode("testNode"));
 	testNode2->getGeometry();*/
 
-	testNode->getGeometry()->loadBufferData();
+	//testNode->getGeometry()->loadBufferData();
 	while (!glfwWindowShouldClose(window->getWindow()))
 	{
 
-		testNode->getGeometry()->renderGeometry();
+		//testNode->getGeometry()->renderGeometry();
 
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();

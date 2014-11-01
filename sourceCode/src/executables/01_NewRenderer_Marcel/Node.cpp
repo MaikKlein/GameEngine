@@ -19,9 +19,9 @@ Node::~Node()
 {
 }
 
-std::string* Node::getNodeName()
+std::string Node::getNodeName()
 {
-	return &m_nodeName;
+	return m_nodeName;
 }
 
 void Node::setNodeName(std::string nodeName)
@@ -53,8 +53,9 @@ void Node::deleteChildrenNode(std::string nodeName)
 	for (int i = 0; i < m_childrenSet.size(); i++)
 	{
 		//TODO: bessere vergleichsmethode von const char??
-		if (m_childrenSet.at(i)->getNodeName()->compare(nodeName))
+		if (m_childrenSet.at(i)->getNodeName().compare(nodeName))
 		{
+			
 			m_childrenSet.erase(m_childrenSet.begin()+i);
 		}
 	}
@@ -70,8 +71,8 @@ Node* Node::getChildrenNode(std::string nodeName)
 	
 	for (int i = 0; i < m_childrenSet.size(); i++)
 	{
-
-		if (m_childrenSet.at(i)->getNodeName()->compare(nodeName))
+		std::cout << m_childrenSet.at(i)->getNodeName();
+		if (m_childrenSet.at(i)->getNodeName() == nodeName)
 		{
 			return m_childrenSet.at(i);
 		}

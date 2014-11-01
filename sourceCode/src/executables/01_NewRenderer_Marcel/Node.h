@@ -3,7 +3,7 @@
 #include <glm/ext.hpp>
 #include "Geometry.h"
 #include "Rect.h"
-
+#include <iostream>
 /*A "Node" should be a container for Geometry, Material, Lights and Cameras and provides all the information a shader could need
   like a Modelmatrix for example. It has one parent and can have a lot of children or none. Every Node exists as long as the scenegraph */
 class Node
@@ -17,7 +17,7 @@ public:
 
 	///A getter for the name of a Node
 	/*Returns the name of the Node as const char*/
-	std::string* getNodeName();
+	std::string getNodeName();
 
 	///A Setter for the name of the Node
 	/*The m_nodeName will be set*/

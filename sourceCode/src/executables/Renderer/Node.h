@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <glm/ext.hpp>
-
+#include "Geometry.h"
+#include "Rect.h"
+#include <iostream>
 /*A "Node" should be a container for Geometry, Material, Lights and Cameras and provides all the information a shader could need
   like a Modelmatrix for example. It has one parent and can have a lot of children or none. Every Node exists as long as the scenegraph */
 class Node
@@ -15,7 +17,7 @@ public:
 
 	///A getter for the name of a Node
 	/*Returns the name of the Node as const char*/
-	std::string* getNodeName();
+	std::string getNodeName();
 
 	///A Setter for the name of the Node
 	/*The m_nodeName will be set*/
@@ -101,11 +103,18 @@ public:
 	/*The Modelmatrix m_modelMatrix will be set to the identity matrix, all scales, rotations and translation will be lost*/
 	void setIdentityMatrix_ModelMatrix();
 
+	///We link a Geometry to the node
+	/*A geometry Object will be linked with the node and will be saved as m_geometry*/
+	void addGeometry(Geometry* geometry);
+
+	///A Getter for the Geometry of the Node
+	/*Returns m_geometry as a Geometry object*/
+	Geometry* getGeometry();
+
 	//TODO: Folgende methoden müssten noch hinzugefügt werdenlaut UML-Diagramm (werde ich teilweise am Dienstag zwischen 12 und 18 Uhr dann machen, muss morgen früh raus!)
 	/*
 	void addCamera(Camera* camera);
 	void addLight(Light* light);
-	void setGeometry(Geometry* geometry);
 	void setMaterial(Material* material);
 	*/
 
@@ -119,6 +128,8 @@ protected:
 	glm::mat4 m_rotationMatrix;
 	glm::mat4 m_scaleMatrix;
 	glm::mat4 m_translateMatrix;
+
+	Geometry* m_geometry;
 
 private:
 	///A method which updates the Modelmatrix
